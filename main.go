@@ -1,8 +1,7 @@
 package main
 
 import (
-	"stanza-api/configs"
-	"stanza-api/routes"
+	"stanza-api/src/routes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,11 +9,10 @@ import (
 func main() {
 	router := gin.Default()
 
-	//run database
-	configs.ConnectDB()
-
-	//routes
+	// Routes
 	routes.UserRoute(router)
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
 
 	router.Run("localhost:6000")
 }
